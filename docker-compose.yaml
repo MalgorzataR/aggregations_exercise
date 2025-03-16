@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=aggregations
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - pgdatabase
+volumes:
+  pgdata:
